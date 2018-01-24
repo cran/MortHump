@@ -5,7 +5,6 @@
 #' @param x codgroup object resulting from a call to the codgroup function
 #' @param which which type of plot to be produced (see details)
 #' @param ... other parameters to be passed through to plotting functions
-#'
 #' @details
 #' Four plots are curently available.
 #'
@@ -16,7 +15,7 @@
 #'
 #'   \item{which = 3}{Plot the clusters on the plan between the first two dimensions of a Principal Component Analysis.}
 #'
-#'   \item{which = 4}{Plot the first derivative of the force of mortality pooled by cluster.}
+#'   \item{which = 4}{Plot the first difference of the force of mortality pooled by cluster.}
 #'
 #'   }
 #'
@@ -53,7 +52,7 @@ plot.codgroup <- function(x, which,...){
   x <- fit$data$x
   lab <- as.data.frame(fit$data$lab)
   d <- dist(x = t(rxc[which(x > min(x.range) & x < max(x.range)),]),method = "euclidian")
-  opt <- as.clustrange(object = cluster, diss = d)
+  opt <- as.clustrange(object = cluster, diss = d, ncluster = ncol(rxc))
 
   pca <- prcomp(t(rxc[which(x > min(x.range) & x < max(x.range)),]))
 
@@ -89,10 +88,9 @@ plot.codgroup <- function(x, which,...){
     par(xpd = FALSE)
     abline(h = 0, col = 8)
     abline(v = 0, col = 8)
+    par(xpd = TRUE)
+    legend(x = min(pca$x[,1]), y = min(ylim), title = "clusters", legend = c(1:k), col = cols, pch = 16, ncol = k, cex = 0.8, bg = NA)
     par(xpd = FALSE)
-
-    legend("bottom", title = "clusters", legend = c(1:k), col = cols, pch = 16, ncol = k, cex = 0.8, bg = NA)
-
   }
 
   if(which == 4){
@@ -101,13 +99,13 @@ plot.codgroup <- function(x, which,...){
     rxc.gr <- matrix(NA, nrow = nrow(rxc), ncol = k)
     for(i in 1:k){if(sum(gr == i) > 1){rxc.gr[,i] <- rowMeans(rxc[,gr == i])}else{rxc.gr[,i] <- rxc[,gr == i]}}
     ylim <- range(rxc.gr[which(x > min(x.range) & x < max(x.range)),], na.rm = TRUE)
-    matplot(x = rowMeans(cbind(x[-1],x[-length(x)])), y = rxc.gr, type = "l", lty = 1, xlab = "age", ylab = expression(paste(partialdiff,m[xc],"/",partialdiff,"x")),
-            main = paste("First derivative of mx by cluster (k = ",k,")",sep=""), las = 1, ylim = ylim, col = cols, xlim = c(0,max(x.range)+10),...)
+    matplot(x = rowMeans(cbind(x[-1],x[-length(x)])), y = rxc.gr, type = "l", lty = 1, xlab = "age", ylab = "",
+            main = paste("First difference of mx by cluster (k = ",k,")",sep=""), las = 1, ylim = ylim, col = cols, xlim = c(0,max(x.range)+10),...)
     abline(v = range(x.range), col = 8, lwd = 3)
     abline(h = 0, col = 8)
     arrows(x0 = min(x.range), y0 = ylim[2], x1 = max(x.range), y1 = ylim[2], length = 0.1, code = 3,col="grey")
     text(x = mean(x.range), y = ylim[2], labels = "age range for clustering", pos = 1, cex = 0.8, col = "grey")
-    legend("topright", legend = 1:k, lty = 1, col = cols, title = "Clusters",cex = 0.5, ncol = 1, x.intersp = 0.5)
+    legend("topright", legend = 1:k, lty = 1, col = cols, title = "Clusters",cex = 0.7, ncol = 1, x.intersp = 0.5)
 
   }
 

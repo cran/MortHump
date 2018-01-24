@@ -40,4 +40,3 @@ coef(fit)
 \seealso{
 \code{\link{morthump}}
 }
-

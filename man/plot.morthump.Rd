@@ -27,10 +27,9 @@ Other summary indicators can be obtained by calling \link{summary.morthump}.
 
 data("CHE2010m")
 fit <- morthump(data = CHE2010m, model = "sse")
-plot(fit, which = 2)
+plot(fit, which = 1)
 
 }
 \seealso{
 \link{morthump}, \link{summary.morthump}
 }
-

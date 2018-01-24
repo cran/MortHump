@@ -4,8 +4,8 @@
 \alias{codhump}
 \title{Decompose the contributions to the young adult mortality hump by cause}
 \usage{
-codhump(data, typ, x.range = 10:90, maxit = 200, x.hump = 35,
-  start.correct = FALSE, lambda = 10^4)
+codhump(data, typ, x.range = NULL, maxit = 200, x.hump = 25,
+  start.correct = FALSE, lambda = 10^5)
 }
 \arguments{
 \item{data}{list produced with \code{HCD2MH} or similarly structured}
@@ -70,18 +70,18 @@ Failure to include sufficient causes will result in a probable underestimation o
 On the other hand, specifying too many causes as contributing to the hump may result in difficulties to estimate cause-specific contributions that are not based on sufficient empirical evidence.
 Typically, the \code{typ} object will include somewhere between 2 and 6 causes (or groups of causes) of death depending on the context and the number of causes available in the dataset.
 
-The \code{x.range} argument defines the age range on which the analysis takes place. The bottom boundary should correspond approximately to the lowest observed age-specific death rate, which is usually situated around 10 years of age.
-The top of the range should include most of the adult years, but should also avoid the so-called mortality plateau often observed after age 100. Therefore, the \code{x.range} argument is defined by default as \code{10:90}, but the user may want to change these values if necessary.
+The \code{x.range} argument defines the age range on which the analysis takes place. By default, the bottom boundary corresponds to the age with the lowest observed death rate, which is usually situated around 10 years of age.
+The top of the range should include most of the adult years, but should also avoid the so-called mortality plateau often observed after age 100. It is defined by default to 90, but the user may want to change these values if necessary.
 
 The \code{maxit} argument defines the maximum number of iterations used for the step 4 of the algorithm. This step uses a Penalized Composite Link Model (PCLM) along with an iterative re-weighted least squares (IRWLS) optimization procedure.
 The \code{maxit} argument will therefore determine the maximum number of iterations used in the IRWLS loop, but also the speed of convergence since the re-weighting defines updated solution as \deqn{new = old * (1 - it/maxit) + new * (it/maxit)}
 The \code{maxit} argument is defined at 200 by default, but it can be increased in case of an absence of convergence, even if the algorithm stopped before reaching \code{maxit} number of iterations.
 
 The \code{x.hump} argument is used to compute the starting values of the independant SSE models. More specifically, it is used to determined the apriori age range to be considered for the young adult mortality hump.
-In case of a very narrow hump, it is advised to reduce the value of \code{x.hump} to 25 or even 20 (but not lower), wherease in case of an especially wide hump it may be useful to consider larger values for \code{x.hump}.
+In most cases, especially when the hump is obvious, the model converges even with relatively bad starting values. However, in case of a very narrow hump, it is advised to use a small value of \code{x.hump} (20 to 25, but not lower), and in case of a wide hump it may be useful to consider larger values for \code{x.hump} (30 and over).
 Inadequate values of \code{x.hump} may result in incoherent starting values for the cause-deleted SSE models and a lack of convergence in the step 4 of the algorithm (see \code{start.correct}).
 
-The \code{lambda} parameter controls the amount of smoothing imposed on the senescence component of the SSE model. Typically, a large value is advisable since this is the part of the force of mortality on which the model is not focused.
+The \code{lambda} parameter controls the amount of smoothing imposed on the senescence component of the SSE model. Typically, a large value is advisable since this is the part of the force of mortality that the model aims at removing in order to reveal the hump.
 However, in some cases, especially when using abridged datasets, it may be useful to consider smaller values of \code{lambda} such as 10 or 100. A bad choice of \code{lambda} may result in poor starting values for the SSE and a lack of convergence in the step 4 of the algorithm.
 
 The \code{start.correct} argument is conceived as a safeguard against misspecified starting values of the SSE model. Specifically, while estimating the SSE model on the cause-deleted forces of mortality, if the hump component peaks after the middle of the \code{x.range} interval, the starting values are replaced with the all-cause components.
@@ -102,9 +102,8 @@ fit <- codhump(data = USA2000m, typ = typ, start.correct = TRUE)
 \references{
 Camarda, C. G., Eilers, P. H. C., & Gampe, J. (2016). Sums of smooth exponentials to decompose complex series of counts. Statistical Modelling.
 
-Remund, A., Riffe, T., & Camarda, C. (2016). A Non-Parametric Approach to Decompose the Young Adult Mortality Hump by Causes of Death. Poster presented at the 2016 annual meeting of the Population Association of America. March 2016, Washington DC.
+Remund, A., Riffe, T., & Camarda, C. (2018). A cause-of-death decomposition of young adult excess mortality. Demography.
 }
 \seealso{
 \link{sse.fit}, \link{summary.codhump}, \link{plot.codhump}, \link{HCD2MH}
 }
-

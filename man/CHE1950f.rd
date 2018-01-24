@@ -2,7 +2,7 @@
 \alias{CHE1950f}
 \docType{data}
 \title{
-Population and Mortality Data for Swiss Males in 2010
+Population and Mortality Data for Swiss Females in 1950
 }
 \description{
 Age-specific deaths, exposures and rates for the Swiss female population in 1950 from the Human Mortality Database.

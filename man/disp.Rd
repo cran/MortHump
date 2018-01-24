@@ -4,10 +4,12 @@
 \alias{disp}
 \title{Generate a grid layout for panel plots}
 \usage{
-disp(n)
+disp(n, horiz = FALSE)
 }
 \arguments{
 \item{n}{number of plots to be displayed}
+
+\item{horiz}{should horizontal growth be favored instead of vertical (default)}
 }
 \value{
 disp returns a vector of length two that indicates the number of rows and columns to be passed to \code{par(mfrow)}.
@@ -41,4 +43,3 @@ par(mfrow = c(1,1), mar = c(5,4,4,2) + .1)
 
 
 }
-

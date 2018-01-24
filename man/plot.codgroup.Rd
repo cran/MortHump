@@ -26,7 +26,7 @@ Four plots are curently available.
 
   \item{which = 3}{Plot the clusters on the plan between the first two dimensions of a Principal Component Analysis.}
 
-  \item{which = 4}{Plot the first derivative of the force of mortality pooled by cluster.}
+  \item{which = 4}{Plot the first difference of the force of mortality pooled by cluster.}
 
   }
 }
@@ -42,4 +42,3 @@ plot(grouping, which = 3)
 \seealso{
 \link{codgroup}
 }
-

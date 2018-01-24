@@ -37,9 +37,10 @@
 #' @method confint morthump
 
 
-confint.morthump <- function(object, parm, level = 0.95, method, iter = 1000,...){
+confint.morthump <- function(object, parm = "e0", level = 0.95, method, iter = 1000,...){
 
     fit <- object
+    loss <- summary(fit)$loss
 
     # function to shift a variable
     shift <- function(x,shift_by){
@@ -138,10 +139,22 @@ confint.morthump <- function(object, parm, level = 0.95, method, iter = 1000,...
     cumyx   <- rev(cumsum(rev(yx)))
     varex   <- cumyx / (lx^2)
     seex    <- sqrt(varex)
-    lower   <- ex[1] - qnorm((1 - level) / 2) * seex[1]
-    upper   <- ex[1] + qnorm(1 - (1 - level) / 2) * seex[1]
+    lower   <- ex[1] + qnorm((1 - level) / 2) * seex[1]
+    upper   <- ex[1] - qnorm((1 - level) / 2) * seex[1]
   }
+
+  cat("Loss of life expectancy due to the hump (years):",loss)
+  cat("\n")
+  cat("Half-confidence interval of fitted life expectancy at birth:",round((e0-lower)/2,3))
+  cat("\n")
+  if(loss > (e0-lower)/2){cat("The hump is statistically significant")}else{
+    cat("The hump is not statistically significant")
+  }
+  cat("\n")
+  cat("Significance level:",level)
+
   return(list(e0 = e0, upper = upper, lower = lower))
+
 }
 
 

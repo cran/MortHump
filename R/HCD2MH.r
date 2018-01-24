@@ -28,7 +28,7 @@
 #'    \item{x}{a vector of mid-point for each age interval}
 #'    \item{age}{a character vector of age labels}
 #'    \item{inter}{a matrix containing the endpoints of the age intervals}
-#'    \item{lab}{a character vector of short names for the causes of death}
+#'    \item{lab}{a data frame containing the colomn index, short names and labels for the causes of death}
 #'  }
 #'
 #' @references
@@ -109,6 +109,7 @@ HCD2MH <- function(country, year, sex, list, unabr = FALSE, path){
   if(unabr == TRUE){
 
     ua <- unabridge(dxc = dxc, nx = nx, inter = inter)
+    age <- ua$x
     x <- ua$x + 0.5
     dxc <- ua$dxc
     nx <- ua$nx

@@ -78,4 +78,3 @@ Camarda, C. G., Eilers, P. H. C., & Gampe, J. (2016). Sums of smooth exponential
 \seealso{
 \link{morthump}
 }
-

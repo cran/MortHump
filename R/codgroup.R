@@ -51,7 +51,7 @@
 codgroup <- function(data, x.range = 10:35, k = "ASW"){
 
   x <- data$x
-  mxc <- data$mxc
+  mxc <- as.data.frame(data$mxc)
   lab <- as.data.frame(data$lab)
   names(mxc) <- data$lab$short
   names(mxc)[is.na(names(mxc))] <- LETTERS[1:sum(is.na(names(mxc)))]
@@ -61,7 +61,7 @@ codgroup <- function(data, x.range = 10:35, k = "ASW"){
   d <- dist(x = t(rxc[which(x > min(x.range) & x < max(x.range)),]),method = "euclidian")
   cluster <- hclust(d)
 
-  opt <- as.clustrange(object = cluster, diss = d)
+  opt <- as.clustrange(object = cluster, diss = d, ncluster = ncol(rxc))
   if(!is.numeric(k)){
     k <- summary(opt)[which(rownames(summary(opt)) == k),1]
   }

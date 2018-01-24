@@ -24,9 +24,6 @@ a(x) estimated assuming death rate constant in each interval. Most a values are 
 \details{
 In the case of single ages, I found that ages a1-a10 were all estimated very close to .5, whereas the older ages a50+ were all estimated very close to what other methods produce. In order to adjust a(x) values to reflect dropping mortality at young ages, I wrote the following rule of thumb, which scales based on the level of mortality at age 0 and age 8. Basically the drop in mortality from age 0 to 8 ought to produce successively larger a(x) values, approaching .5. The increments in a(x) at each age from 1 until 8 are thus applied according to some fixed proportions, contained in the variable 'jumps'. This is the last code chunk in the function, which is displayed below under 'examples'. For more info, look at the code.
 }
-\author{
-Tim Riffe
-}
 \references{
 Coale Anseley and Paul Demeny, with B Vaughan (1983). Regional Model Life Tables and Stable Populations. New York Academic Press.
 
@@ -35,4 +32,6 @@ Preston, S. et al (2001) Demography: measuring and modeling population processes
 \seealso{
 See Also as \code{\link{axEstimate}}, a wrapper function for this and three other a(x) estimation procedures (\code{\link{axMidpoint}}, \code{\link{axKeyfitz}} and \code{\link{axSchoen}}).
 }
-
+\author{
+Tim Riffe
+}

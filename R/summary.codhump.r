@@ -70,23 +70,30 @@ summary.codhump <- function(object, ...){
     e0hyp <- LT(Mx = mhyp, ages = ages, mxsmooth = FALSE, verbose = FALSE)$ex[1]
     losses[i] <- round(e0hyp - e0hat, 2)
   }
-  names(losses) <- names(fit$par$typ)
+  losses <- c(e0hump,losses)
+  names(losses) <- c("all",names(fit$par$typ))
 
   # descriptive statistics
   x <- fit$mxc$x
   mh <- as.numeric(fit$all$gamma1)
   mode <- x[which.max(mh)]
   mean <- mh %*% x / sum(mh)
-  sd <- sqrt(mh %*% (x - mean)^2 / sum(mh))
+  sd <- sqrt(mh %*% (x - c(mean))^2 / sum(mh))
   modes <- means <- sds <- rep(NA, length(fit$par$typ))
   for(i in 1:length(modes)){
     modes[i] <- x[which.max(fit$decomp[,i])]
     means[i] <- fit$decomp[,i] %*% x / sum(fit$decomp[,i])
-    suppressWarnings(sds[i]   <- sqrt(fit$decomp[,i] %*% (x - means[i])^2 / sum(fit$decomp[,i])))
+    suppressWarnings(sds[i]   <- sqrt(fit$decomp[,i] %*% (x - c(means[i]))^2 / sum(fit$decomp[,i])))
   }
-  names(sds) <- names(means) <- names(modes) <- names(fit$par$typ)
+  modes <- c(mode,modes)
+  means <- c(mean,means)
+  sds <- c(sd, sds)
+  modes <- round(modes, 2)
+  means <- round(means, 2)
+  sds <- round(sds, 2)
+  names(sds) <- names(means) <- names(modes) <- c("all",names(fit$par$typ))
 
-  out <- list(loss = c(e0hump,losses), mode = c(mode,modes), mean = c(mean,means), sd = c(sd,sds))
+  out <- list(loss = losses, mode = modes, mean = means, sd = sds)
 
   class(out) <- "summary.codhump"
   attr(out, "extra") <- fit

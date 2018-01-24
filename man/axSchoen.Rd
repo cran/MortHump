@@ -19,9 +19,6 @@ This estimation technique of Chiang's a(x) was proposed by Schoen (1978) and is 
 \details{
 The very last a(x) value is imputed using linear extrapolation of the prior 3 points. For most demographic measures, precision at the upper ages has little or no effect on results. In general, this estimation procedure works very well, and produces results very similar to the Keyfitz iterative procedure, but the estimates at the final ages tend to turn upward, where they ought to slope downward instead.
 }
-\author{
-Tim Riffe
-}
 \references{
 Chiang C.L.(1968) Introduction to Stochastic Processes in Biostatistics. New York: Wiley.
 
@@ -32,4 +29,6 @@ Preston et al (2001) Demography: Measuring and Modeling Population Processes. Ma
 \seealso{
 See Also as \code{\link{axEstimate}}, a wrapper function for this and three other a(x) estimation procedures (\code{\link{axMidpoint}}, \code{\link{axKeyfitz}} and \code{\link{axPreston}}).
 }
-
+\author{
+Tim Riffe
+}

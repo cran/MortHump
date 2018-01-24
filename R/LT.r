@@ -13,7 +13,6 @@
 #' @param axsmooth logical, default = \code{TRUE}. Ignored if \code{mxsmooth = TRUE}. Should the a(x) values be calculated from a smoothed M(x) series? In this case, the M(x) series is smoothed within the \code{axEstimate()} function for a(x) estimation, but the smoothed M(x) function that was used is not returned. In general, it is better to smooth the M(x) function prior to putting it in this function, because the loess smoother used here has no weights or offset. If this is not possible, loess M(x) smoothing still produces more consistent and less erratic a(x) estimates. If \code{mxsmooth = FALSE} and \code{axsmooth = TRUE}, the Mx series is only smoothed for use in a(x) estimation, and does not affect any other lifetable calculations that are dependent on Mx.
 #' @param radix The lifetable starting population at age 0, l(0). default = 1. Other common values are 1000 and 100000, although any value may be given.
 #' @param verbose logical, default = \code{TRUE}. Should informative but possibly annoying messages be returned when the function does something that you might want to know about?
-#' @param ... further arguments passed to or from other methods
 #'
 #' @details Either \code{Nx} must be specified along with \code{Dx}, *or* \code{Mx} must be specified directly. If smoothing is used, it is better to specify both \code{Nx} and \code{Dx}, since the \code{Nx} vector can be used as an offset in the \code{MortalitySmooth} smoother.
 #'
@@ -47,28 +46,20 @@
 #' Coale Anseley and Paul Demeny, with B Vaughan (1983). Regional Model Life Tables and Stable Populations. New York Academic Press.\\
 #' Keyfitz, Nathan (1966) A Life Table that Agrees with the Data. Journal of the American Statistical Association, 61 (314):305-12. As described on page 44-45 of: Schoen R. (1978) Calculating lifetables by estimating Chiang's a from observed rates. Demography 15: 625-35.
 #'
-#' function calls \code{MortalitySmooth}: Carlo G Camarda (2009) MortalitySmooth: Smoothing Poisson counts with P-splines. (version 2.3 at the time of this writing) \url{http://CRAN.R-project.org/package=MortalitySmooth}.
+#' function calls \code{MortalitySmooth}: Carlo G Camarda (2009) MortalitySmooth: Smoothing Poisson counts with P-splines. (version 2.3 at the time of this writing) \url{https://CRAN.R-project.org/package=MortalitySmooth}.
 #'
 #' @seealso \code{\link{MortalitySmooth}}, \code{\link{axEstimate}}.
 #'
-#' @examples
-#'
-#' data(CHE2010m)
-#' attach(CHE2010m)
-#' lt <- LT(Nx = n, Dx = d, ages = x, mxsmooth = FALSE)
-#' lt$ex[1] # life expectancy at birth
-#'
-#'
-#' @author Tim Riffe
-#'
 #' @importFrom MortalitySmooth Mort1Dsmooth
 #' @importFrom stats loess
+#' @importFrom svcm cleversearch
 #'
 #' @export
 #'
 
-LT <- function(Nx=NULL, Dx=NULL, Mx = Dx/Nx, ages = 0:(length(Mx)-1), axmethod = "midpoint", sex = "female",
-           mxsmooth = TRUE, axsmooth = TRUE, radix = 1, verbose = TRUE, ...){
+LT <-
+  function(Nx=NULL, Dx=NULL, Mx = Dx/Nx, ages = 0:(length(Mx)-1), axmethod = "midpoint", sex = "female",
+           mxsmooth = TRUE, axsmooth = TRUE, radix = 1, verbose = TRUE){
     # the verbose function:
     Verb <- function(v, x){
       if (v) {
@@ -76,10 +67,6 @@ LT <- function(Nx=NULL, Dx=NULL, Mx = Dx/Nx, ages = 0:(length(Mx)-1), axmethod =
       }
     }
     # first a series of checks, messages and imputations to make sure the given Dx&Nx *or* Mx values are viable
-    otherArgs <- list(...)
-    if (length(otherArgs)>1){
-      Verb(verbose,paste(unlist(otherArgs),collapse = ", "),"is/are not arguments to this function,\nalthough they may have been in the past. In that case, consider them deprecated")
-    }
     if (length(Mx) == 0){
       # two checks that will stop the function
       # 1) in absence of Mx, need both Dx and Nx
@@ -111,7 +98,7 @@ LT <- function(Nx=NULL, Dx=NULL, Mx = Dx/Nx, ages = 0:(length(Mx)-1), axmethod =
       Age <- as.character(ages)
       Age[N] <- paste0(Age[N],"+")
     } else {
-      Age <- c(paste(ages[1:(N - 1)], ages[1:(N - 1)] + Widths[1:(N-1)] - 1,sep="-"),paste0(ages[N],"+"))
+      Age <- c(0,paste(ages[2:(N - 1)], ages[2:(N - 1)] + Widths - 1,sep="-"),paste0(ages[N],"+"))
     }
 
     ages.mids.pre 		<- ages + Widths / 2
@@ -185,7 +172,7 @@ LT <- function(Nx=NULL, Dx=NULL, Mx = Dx/Nx, ages = 0:(length(Mx)-1), axmethod =
     }
 
     # if zeros were imputed for ax estimation, then we put them back for the rest of the calculations
-    if (is.null(Ind0)){
+    if (!is.null(Ind0)){
       mx[Ind0]        <- 0
     }
 
@@ -234,6 +221,4 @@ LT <- function(Nx=NULL, Dx=NULL, Mx = Dx/Nx, ages = 0:(length(Mx)-1), axmethod =
                 Widths = Widths)
     invisible(out)
   }
-
-
 

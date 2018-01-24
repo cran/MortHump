@@ -20,4 +20,3 @@ a0, the estimated average age at death of those dying in the first year of life,
 \author{
 Tim Riffe
 }
-

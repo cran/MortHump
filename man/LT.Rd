@@ -6,7 +6,7 @@
 \usage{
 LT(Nx = NULL, Dx = NULL, Mx = Dx/Nx, ages = 0:(length(Mx) - 1),
   axmethod = "midpoint", sex = "female", mxsmooth = TRUE,
-  axsmooth = TRUE, radix = 1, verbose = TRUE, ...)
+  axsmooth = TRUE, radix = 1, verbose = TRUE)
 }
 \arguments{
 \item{Nx}{numeric vector of population exposures by age.}
@@ -28,8 +28,6 @@ LT(Nx = NULL, Dx = NULL, Mx = Dx/Nx, ages = 0:(length(Mx) - 1),
 \item{radix}{The lifetable starting population at age 0, l(0). default = 1. Other common values are 1000 and 100000, although any value may be given.}
 
 \item{verbose}{logical, default = \code{TRUE}. Should informative but possibly annoying messages be returned when the function does something that you might want to know about?}
-
-\item{...}{further arguments passed to or from other methods}
 }
 \value{
 a list is invisibly returned
@@ -56,18 +54,6 @@ Accepts either single age or 5-year abridged data. Accepts many optional argumen
 \details{
 Either \code{Nx} must be specified along with \code{Dx}, *or* \code{Mx} must be specified directly. If smoothing is used, it is better to specify both \code{Nx} and \code{Dx}, since the \code{Nx} vector can be used as an offset in the \code{MortalitySmooth} smoother.
 }
-\examples{
-
-data(CHE2010m)
-attach(CHE2010m)
-lt <- LT(Nx = n, Dx = d, ages = x, mxsmooth = FALSE)
-lt$ex[1] # life expectancy at birth
-
-
-}
-\author{
-Tim Riffe
-}
 \references{
 The main reference for this function has been:
 
@@ -80,9 +66,8 @@ Chiang C.L.(1968) Introduction to Stochastic Processes in Biostatistics. New Yor
 Coale Anseley and Paul Demeny, with B Vaughan (1983). Regional Model Life Tables and Stable Populations. New York Academic Press.\\
 Keyfitz, Nathan (1966) A Life Table that Agrees with the Data. Journal of the American Statistical Association, 61 (314):305-12. As described on page 44-45 of: Schoen R. (1978) Calculating lifetables by estimating Chiang's a from observed rates. Demography 15: 625-35.
 
-function calls \code{MortalitySmooth}: Carlo G Camarda (2009) MortalitySmooth: Smoothing Poisson counts with P-splines. (version 2.3 at the time of this writing) \url{http://CRAN.R-project.org/package=MortalitySmooth}.
+function calls \code{MortalitySmooth}: Carlo G Camarda (2009) MortalitySmooth: Smoothing Poisson counts with P-splines. (version 2.3 at the time of this writing) \url{https://CRAN.R-project.org/package=MortalitySmooth}.
 }
 \seealso{
 \code{\link{MortalitySmooth}}, \code{\link{axEstimate}}.
 }
-

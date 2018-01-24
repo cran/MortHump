@@ -23,4 +23,3 @@ This is based on an MPIDR Working Paper: Andreev, Evgueni M and Kingkade, Ward W
 \author{
 Tim Riffe
 }
-

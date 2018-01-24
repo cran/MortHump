@@ -5,6 +5,7 @@
 #'
 #' @param x codhump object resulting from a call to the codhump function
 #' @param which type of plot to be produced (see details)
+#' @param horiz should horizontal display be favored over vertical in panel plots
 #' @param ... other parameters to be passed through to plotting functions
 #'
 #' @details
@@ -54,13 +55,11 @@
 #' @export
 #' @method plot codhump
 
-plot.codhump <- function(x, which,...){
+plot.codhump <- function(x, which, horiz = FALSE, ...){
 
   fit <- x
 
   if(which %in% 1:5 == FALSE){warning("Choose one of the five plots available.")}
-
-  #disp <- MortHump:::disp
 
   if(which == 1){
     x <- fit$mxc$x
@@ -83,14 +82,13 @@ plot.codhump <- function(x, which,...){
 
   if(which == 2){
 
-    ncod <- length(typ)
-
-    par(mfrow = disp(ncod))
-
+    typ <- fit$par$typ
     fits <- fit$start
     x <- fit$mxc$x
     mxc <- fit$mxc$mx - fit$mxc[,-c(1:2,ncol(fit$mxc))]
-    typ <- fit$par$typ
+    ncod <- length(typ)
+    
+    par(mfrow = disp(ncod, horiz = horiz))
 
     for(i in 1:length(fits)){
 
@@ -116,13 +114,14 @@ plot.codhump <- function(x, which,...){
     par(mfrow = c(1,2))
     # speed of convergence
     plot(1:sum(dif!=0), dif[1:sum(dif!=0)], ylim = c(0,0.1), las = 1, xlab = "iteration", ylab = "max relative change of eta",...)
-    abline(h = 1e-3,col=2)
+    abline(h = 1e-3, col = 2)
     title("Speed of convergence")
 
 
     # elimination of negative contributions
+    neg <- neg[neg != -Inf & neg != Inf]
     plot(1:sum(neg!=0), - neg[1:sum(neg!=0)] * 100, ylim = c(0,-min(neg*100)), las = 1, xlab = "iteration", ylab = "% of negative values in the contributions",...)
-    abline(h=0,col=2)
+    abline(h = 0, col = 2)
     title("Elimination of negative values")
 
    par(mfrow = c(1,1))
@@ -131,13 +130,14 @@ plot.codhump <- function(x, which,...){
  if(which == 4){
 
     # comparison of all-cause and cause-deleted fits
+    typ <- fit$par$typ 
     x <- fit$mxc$x
     col <- fit$par$col
-    ncod <- length(fit$par$typ)
+    ncod <- length(typ)
     fits <- fit$fits
     mxcd <- fit$mxc[,3:ncol(fit$mxc)]
 
-    par(mfrow = disp(ncod))
+    par(mfrow = disp(ncod, horiz = horiz))
     for(i in 1:ncod){
       fit.i <- fits[[i]]
 
@@ -160,7 +160,8 @@ plot.codhump <- function(x, which,...){
   }
 
   if(which == 5){
-
+    
+    typ <- fit$par$typ
     x <- fit$mxc$x
     col <- fit$par$col
     decomp <- fit$decomp
@@ -170,7 +171,7 @@ plot.codhump <- function(x, which,...){
     plot(x,fit$all$gamma1 / sum(fit$all$gamma1), xlim = c(10,60), type = "n", xlab = "age", ylab = "pdf", las = 1)
     polygon(c(x,rev(x)),c(rep(0,length(x)),rev(decomp[,1])) / sum(fit$all$gamma1),col = col[1], border = NA)
     if(ncol(decomp) > 1){
-    for(i in 2:length(fit$par$typ)){
+    for(i in 2:length(typ)){
       polygon(c(x,rev(x)),c(rowSums(as.matrix(decomp[,1:(i-1)])),rev(rowSums(as.matrix(decomp[,1:i])))) / sum(fit$all$gamma1),col = col[i], border = NA)
     }}
     lines(x,fit$all$gamma1 / sum(fit$all$gamma1),lwd = 2)

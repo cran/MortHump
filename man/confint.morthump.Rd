@@ -4,8 +4,8 @@
 \alias{confint.morthump}
 \title{Confidence Intervals for morthump fit}
 \usage{
-\method{confint}{morthump}(object, parm, level = 0.95, method, iter = 1000,
-  ...)
+\method{confint}{morthump}(object, parm = "e0", level = 0.95, method,
+  iter = 1000, ...)
 }
 \arguments{
 \item{object}{the result of a \code{morthump} fit.}
@@ -45,4 +45,3 @@ Brown, L. D., Cai, T. T., & DasGupta, A. (2001). Interval Estimation for a Binom
 Eayres, D., & Williams, E. (2004). Evaluation of methodologies for small area life expectancy estimation. Journal of epidemiology and community health, 58(3), 243-249.
 Toson, B., & Baker, A. (2003). Life expectancy at birth: methodological options for small populations. National statistics methodological series, 33.
 }
-

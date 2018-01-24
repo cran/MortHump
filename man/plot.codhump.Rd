@@ -4,12 +4,14 @@
 \alias{plot.codhump}
 \title{Plot diagnostic for a codhump object}
 \usage{
-\method{plot}{codhump}(x, which, ...)
+\method{plot}{codhump}(x, which, horiz = FALSE, ...)
 }
 \arguments{
 \item{x}{codhump object resulting from a call to the codhump function}
 
 \item{which}{type of plot to be produced (see details)}
+
+\item{horiz}{should horizontal display be favored over vertical in panel plots}
 
 \item{...}{other parameters to be passed through to plotting functions}
 }
@@ -58,4 +60,3 @@ plot(fit, which = 5)
 \seealso{
 \link{codhump}, \link{summary.codhump}
 }
-

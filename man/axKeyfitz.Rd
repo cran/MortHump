@@ -25,9 +25,6 @@ This procedure usually converges very quickly. First, dx is estimated from an ax
 \note{
 Preston warns that this method should only be used when the age intervals are equal, which is not the case with abridged data. The function will still estimate using such data, but be wary.
 }
-\author{
-Tim Riffe
-}
 \references{
 Chiang C.L.(1968) Introduction to Stochastic Processes in Biostatistics. New York: Wiley.
 Keyfitz, Nathan (1966) A Life Table that Agrees with the Data. Journal of the American Statistical Association, 61 (314):305-12. (As described on page 44-45 of Preston et al (2001). Demography: Measuring and Modelling Population Processes. Blackwell Publishing)
@@ -35,4 +32,6 @@ Keyfitz, Nathan (1966) A Life Table that Agrees with the Data. Journal of the Am
 \seealso{
 \code{\link{axEstimate}}, a wrapper function for this and three other a(x) estimation procedures (\code{\link{axMidpoint}}, \code{\link{axSchoen}} and \code{\link{axPreston}}).
 }
-
+\author{
+Tim Riffe
+}

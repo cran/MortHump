@@ -31,9 +31,6 @@ This function is a wrapper, and it is called by the lifetable function \code{LT(
 \note{
 Be aware that all of the above methods are in some way a hybrid: In the \code{"schoen"} and \code{"keyfitz"} methods, I added procedures to produce values for the final age(s) in a rudimentary way, and in the \code{"preston"} method I also made a rudimentary estimation procedure for a1 - a8 for single age data. For all methods, a0 is calculated using a modified version of the Andreev-Kingkade a0 rule. It is best not to use \code{"keyfitz"} the default method, with abridged age groups.
 }
-\author{
-Tim Riffe
-}
 \references{
 Chiang C.L.(1968) Introduction to Stochastic Processes in Biostatistics. New York: Wiley.
 
@@ -48,4 +45,6 @@ Andreev, Evgueni M and Kingkade, Ward W (2011) Average age at death in infancy a
 \seealso{
 This function dispatches to one of four different a(x) estimation functions \code{\link{axMidpoint}} for the "midpoint" method, \code{\link{axSchoen}} for the \code{"schoen"} method, \code{\link{axPreston}} for the "preston" method and \code{\link{axKeyfitz}} for the \code{"keyfitz"} method. Look to these pages for specifics. Compare using the examples below. This function is called by \code{\link{LT}}, a single decrement lifetable function.
 }
-
+\author{
+Tim Riffe
+}

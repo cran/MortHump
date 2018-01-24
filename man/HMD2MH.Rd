@@ -62,4 +62,3 @@ Human Mortality Database. University of California, Berkeley (USA), and Max Plan
 \seealso{
 This function makes use of the functions \code{readHMD} and \code{readHMDweb} from the \pkg{HMDHFDplus} package.
 }
-

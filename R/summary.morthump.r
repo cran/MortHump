@@ -94,15 +94,15 @@ summary.morthump <- function(object,...){
    }else{pval <- NA}
 
    # loss of life expectancy
-   e0hat <- LT(Mx = mhat, type = "single-age", mxsmooth = FALSE, verbose = FALSE)$ex[1]
-   e0hyp <- LT(Mx = mhyp, type = "single-age", mxsmooth = FALSE, verbose = FALSE)$ex[1]
+   e0hat <- LT(Mx = mhat, ages = data$x, mxsmooth = FALSE, verbose = FALSE)$ex[1]
+   e0hyp <- LT(Mx = mhyp, ages = data$x, mxsmooth = FALSE, verbose = FALSE)$ex[1]
    e0hump  <- round(e0hyp - e0hat,2)
 
    # loss of lives
    dh <- round(sum(data$n * mhump))
 
    # years of life lost
-   yll <- round((data$n * mhump) %*% LT(Mx = mhat, type = "single-age", mxsmooth = FALSE, verbose = FALSE)$ex)
+   yll <- round((data$n * mhump) %*% LT(Mx = mhat, ages = data$x, mxsmooth = FALSE, verbose = FALSE)$ex)
 
    if(model != "hps"){
 
@@ -121,7 +121,6 @@ summary.morthump <- function(object,...){
    median <- qtl(0.5)
    mean <- as.numeric(pdf(x) %*% x)
    sd <- as.numeric(sqrt(pdf(x) %*% (data$x - mean)^2))
-
    }
 
 

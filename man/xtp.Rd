@@ -37,4 +37,3 @@ Hyndman, R. J., & Ullah, M. S. (2007). Robust forecasting of mortality and ferti
 \seealso{
 \link{HMD2MH}, \link{fdm} from the \pkg{demography} package
 }
-

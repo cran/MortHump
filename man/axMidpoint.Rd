@@ -20,9 +20,6 @@ approximates a(x) using interval midpoints (except a0, which is estimated using 
 \details{
 All values will be in the exact middle of the age interval, except for a0, which uses: \code{a0 = .07 + 1.7 * M0}.
 }
-\author{
-Tim Riffe
-}
 \references{
 formula for a0 as suggested by:
 Keyfitz, N. (1970), Finding probabilities from observed rates, or how to make a life table. The American Statistician (1970), pp. 28-33
@@ -30,4 +27,6 @@ Keyfitz, N. (1970), Finding probabilities from observed rates, or how to make a 
 \seealso{
 See Also \code{\link{axEstimate}}, a wrapper function for this and 3 other a(x) estimation methods (\code{\link{axKeyfitz}},\code{\link{axSchoen}} and \code{\link{axPreston}}).
 }
-
+\author{
+Tim Riffe
+}

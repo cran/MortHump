@@ -132,4 +132,3 @@ Siler, W. (1979). A Competing-Risk Model for Animal Mortality. Ecology, 60(4), 7
 \seealso{
 \link{sse.fit}, \link{summary.morthump}, \link{plot.morthump}
 }
-

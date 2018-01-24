@@ -28,7 +28,7 @@ HCD2MH returns a list of six elements:
    \item{x}{a vector of mid-point for each age interval}
    \item{age}{a character vector of age labels}
    \item{inter}{a matrix containing the endpoints of the age intervals}
-   \item{lab}{a character vector of short names for the causes of death}
+   \item{lab}{a data frame containing the colomn index, short names and labels for the causes of death}
  }
 }
 \description{
@@ -49,4 +49,3 @@ Human Cause-of-Death Database. French Institute for Demographic Studies (France)
 \seealso{
 \link{codhump}
 }
-

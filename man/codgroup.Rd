@@ -54,4 +54,3 @@ grouping <- codgroup(USA2000m, k = "ASW", x.range = 10:35)
 \seealso{
 \code{\link{codhump}}, \code{\link{HCD2MH}}, \code{\link[WeightedCluster]{as.clustrange}}
 }
-

@@ -51,4 +51,3 @@ unabr <- unabridge(dxc = USA2000m$dxc, nx = USA2000m$nx, inter = USA2000m$inter,
 \seealso{
 \link{HCD2MH}, \link{smooth.spline}
 }
-

@@ -3,6 +3,7 @@
 #' @description For a given number of plots to be displayed in a panel, this function suggests inputs for the \code{par(mfrow)} graphic option.
 #'
 #' @param n number of plots to be displayed
+#' @param horiz should horizontal growth be favored instead of vertical (default)
 #'
 #' @details
 #' This simple function is designed to generate the "squarest" layout grid given the number of plots to be displayed in the same panel.
@@ -33,11 +34,13 @@
 #'
 #' @export
 
-disp <- function(n){
+disp <- function(n, horiz = FALSE){
 
   r <- c <- floor(sqrt(n))
-
-  while(r*c < n){r <- r + 1}
+  
+  if(horiz == FALSE){
+    while(r*c < n){r <- r + 1}}else{
+    while(r*c < n){c <- c + 1}}
 
   return(c(r,c))
 }

@@ -26,7 +26,9 @@ Maintainer: \packageMaintainer{MortHump}
 
 \references{
 
-Remund, A. , Riffe, T, & Camarda, C. G. (2016). A non-parametric approach to decompose the young adult mortality hump by causes of death. \emph{Population Association of America}.
+Remund A., Camarda C. and Riffe T. (2018) Analyzing the Young Adult Mortality Hump in R with MortHump. \emph{MPIDR Technical Report} TR-2018-3.
+
+Remund, A., Riffe, T., & Camarda, C. (2018). A cause-of-death decomposition of young adult excess mortality. \emph{Demography}.
 
 Camarda, C. G., Eilers, P. H. C., & Gampe, J. (2016). Sums of smooth exponentials to decompose complex series of counts. \emph{Statistical Modelling}.
 
